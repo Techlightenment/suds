@@ -63,6 +63,13 @@ class Options(Skin):
         - B{transport} - The message transport.
                 - type: L{Transport}
                 - default: None
+        - B{async} - Allow asynchrounous usage of the library, 
+            Invoking a method will return a suds.transport.Request object with the 
+            SOAP message 
+            Invoking the method 'processreply' with a suds.transport.Reply processes 
+            the message as normal 
+                - type: I{bool} 
+                - default: False 
         - B{soapheaders} - The soap headers to be included in the soap message.
                 - type: I{any}
                 - default: None
@@ -111,6 +118,7 @@ class Options(Skin):
             Definition('cache', Cache, NoCache()),
             Definition('faults', bool, True),
             Definition('transport', Transport, None, TpLinker()),
+            Definition('async', bool, False),
             Definition('service', (int, basestring), None),
             Definition('port', (int, basestring), None),
             Definition('location', basestring, None),
@@ -127,3 +135,4 @@ class Options(Skin):
             Definition('nosend', bool, False),
         ]
         Skin.__init__(self, domain, definitions, kwargs)
+
