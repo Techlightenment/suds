@@ -263,7 +263,14 @@ class Binding:
         p = unmarshaller.process(fault)
         if self.options().faults:
             raise WebFault(p, faultroot)
-        return (faultroot, p.detail)
+        try:
+            detail = p.detail
+        except AttributeError:
+            try:
+                detail = p.faultstring
+            except AttributeError:
+                detail = "Unknown Error"
+        return (faultroot, detail)
     
     def mkparam(self, method, pdef, object):
         """
